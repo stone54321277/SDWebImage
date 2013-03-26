@@ -17,7 +17,8 @@
 @property (assign, nonatomic) NSUInteger skippedCount;
 @property (assign, nonatomic) NSUInteger finishedCount;
 @property (assign, nonatomic) NSTimeInterval startedTime;
-@property (SDDispatchQueueSetterSementics, nonatomic) void (^completionBlock)(NSUInteger, NSUInteger);
+//@property (SDDispatchQueueSetterSementics, nonatomic) void (^completionBlock)(NSUInteger, NSUInteger);
+@property (strong, nonatomic) void (^completionBlock)(NSUInteger, NSUInteger);
 
 @end
 

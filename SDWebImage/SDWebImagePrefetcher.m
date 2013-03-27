@@ -18,7 +18,7 @@
 @property (assign, nonatomic) NSUInteger finishedCount;
 @property (assign, nonatomic) NSTimeInterval startedTime;
 //@property (SDDispatchQueueSetterSementics, nonatomic) void (^completionBlock)(NSUInteger, NSUInteger);
-@property (strong, nonatomic) void (^completionBlock)(NSUInteger, NSUInteger);
+@property (copy, nonatomic) void (^completionBlock)(NSUInteger, NSUInteger);
 
 @end
 
@@ -106,7 +106,7 @@
     [self cancelPrefetching]; // Prevent duplicate prefetch request
     self.startedTime = CFAbsoluteTimeGetCurrent();
     self.prefetchURLs = urls;
-    self.completionBlock = completionBlock;
+    self.completionBlock = [completionBlock copy];
 
     // Starts prefetching from the very first image on the list with the max allowed concurrency
     NSUInteger listCount = self.prefetchURLs.count;
@@ -122,6 +122,7 @@
     self.skippedCount = 0;
     self.requestedCount = 0;
     self.finishedCount = 0;
+    self.completionBlock = nil;
     [self.manager cancelAll];
 }
 
